@@ -1,0 +1,31 @@
+#include <iostream>
+#include <stdio.h>
+#include <iostream>
+#include <Heap/MaxBinaryHeap.h>
+
+
+using namespace std;
+
+
+
+int main() {
+	MaxBinaryHeap<int> *set = new MaxBinaryHeap<int>();
+	int i;
+	for(i = 0; i < 100; i++)
+		set->insert(i);
+
+	for(i = 0; i < 50; i++) {
+		set->remove(100 - i);
+		cout << set->extractMax() << '\n';
+		
+		}
+
+
+
+
+	delete set;
+
+
+	return 0;
+
+}
