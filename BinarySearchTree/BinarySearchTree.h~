@@ -7,7 +7,8 @@
 	struct Node {
 		Node *parent, *left, *right;
 		T val;
-		Node() { parent = left = right = 0; };
+		long long size,count;
+		Node(T v) {val = v; parent = left = right = 0; size = count = 1; };
 	};
 
 template <class T>
@@ -28,7 +29,6 @@ class BinarySearchTree : public DynamicSet<T> {
 	protected:
 
 		Node<T> *root;
-		long long size;
 		void DeleteSubTree(Node<T> *root);
 		Node<T> *getSubTreeMax(Node<T> *root);
 		Node<T> *getSubTreeMin(Node<T> *root);
@@ -36,7 +36,16 @@ class BinarySearchTree : public DynamicSet<T> {
 		Node<T> *getPredecessor(Node<T> *nodePtr);
 		void swapVal(Node<T> *n1, Node<T> *n2);
 		int numChildren(Node<T> *n);
-		virtual void InOrderTraversal(Node<T> *n);
+		virtual void preOrderTraversal(Node<T> *n);
+
+		void UpdateNode(Node<T> *n);
+		Node<T> *searchForNode(T x);
+		
+//		void BalanceTree(Node<T> *n);
+//		long long nodeBalance(Node<T> *n);
+//		void LeftRotate(Node<T> *n);
+//		void RightRotate(Node<T> *n);
+		void FixUpTree(Node<T> *n);
 	private:
 		
 

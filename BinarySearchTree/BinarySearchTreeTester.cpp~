@@ -10,20 +10,30 @@ using namespace std;
 int main() {
 	DynamicSet<int> *set = new BinarySearchTree<int>();
 
-	for(int i = 0; i < 10; i++) {
-		set->insert(i);
-		//cout << set->search(i) << '\n';
-	}
+	set->insert(5);
+	set->insert(3);
+	set->insert(7);
+	set->insert(1);
+	set->insert(4);
+	set->insert(6);
+	set->insert(8);
+	set->insert(5);
+	set->insert(6);
+	set->insert(7);
+
+	set->objType();	
+	set->remove(7);
 	set->objType();
+	set->remove(7);
 
-
-
-	for(int i = 0; i < 100; i++) {
+/*
+	for(int i = 0; i < 10; i++) {
 		set->remove(i);
 		//set->objType();
-		cout << set->getMax() << ' ' << set->getMin() << '\n';
+		//cout << set->getMax() << ' ' << set->getMin() << '\n';
+		set->objType();
 	}
-
+*/
 	delete set;
 	return 0;
 }

@@ -1,7 +1,6 @@
 template <class T>
 BinarySearchTree<T>::BinarySearchTree() {
 	root = NULL;
-	size = 0;
 }
 
 template <class T>
@@ -86,32 +85,107 @@ T BinarySearchTree<T>::getMin() {
 	return minVal;
 }
 
+template <class T>
+void BinarySearchTree<T>::FixUpTree(Node<T> *n) {
+	if(n) {
+		Node<T> *nodePtr = n;
+		while(nodePtr != NULL) {
+			UpdateNode(nodePtr);
+			nodePtr = nodePtr->parent;
+		}	
+	}
+}
+
+/*
+void BinarySearchTree<T>::LeftRotate(Node<T> *n) {
+	if(n && n->right) {
+		Node<T> *a = n, *b = n->right, *parent = a->parent;
+		Node<T> *alpha = a->left, *beta = b->left, *gamma = b->right;
+		a->right = beta;
+		b->left = a;
+		a->parent = b;
+		b->parent = parent;
+		if(beta)
+			beta->parent = alpha;
+	}
+}
+*/
+/*
+void BinarySearchTree<T>::RightRotate(Node<T> *n) {
+	if(n && n->left) {
+		Node<T> *a = n, *b = n->left, *parent = a->parent;
+		Node<T> *alpha = b->left, *beta = b->right, *gamma = a->right;
+		a->left = beta;
+		b->right = a;
+		a->parent = b;
+		b->parent = parent;
+		if(beta)
+			beta->parent = alpha;
+	}
+}
+*/
+/*
+template <class T>
+void BinarySearchTree<T>::BalanceTree(Node<T> *n) {
+	long long balance = 0,leftBalance = -1, rightBalance = -1;
+	Node<T> *nodePtr = n;
+	balance = nodeBalance(nodePtr);
+	if(balance > 1 || balance < -1) {
+		if(balance > 1) {
+			leftBalance = nodeBalance(nodePtr->left);
+			if(leftBalance <= -1)
+				LeftRotate(nodePtr->left);
+			RightRotate(nodePtr->left);
+		}
+	}
+}
+*/
+/*
+template <class T>
+long long BinarySearchTree<T>::nodeBalance(Node<T> *n) {
+	long long balance = 0, leftHeight = -1, rightHeight = -1;
+	if(n) {
+		if(n->left)
+			leftHeight = n->left->height;
+		if(n->right)
+			rightHeight = n->right->height;
+		balance = leftHeight - rightHeight;
+	}
+	return balance;
+}
+*/
 
 template <class T>
 void BinarySearchTree<T>::insert(T x) {
 	if(!root) {
-		root = new Node<T>;
-		root->val = x;
+		root = new Node<T>(x);
 		return;
 	}
 
+
 	Node<T> *nodePtr = root, *prevPtr = NULL;
-	while(nodePtr != NULL) {
+	while(nodePtr != NULL && nodePtr->val != x) {
 		prevPtr = nodePtr;
 		if(x < nodePtr->val)
 			nodePtr = nodePtr->left;
 		else
 			nodePtr = nodePtr->right;
 	}
-	nodePtr = new Node<T>;
+	if(nodePtr) {
+		nodePtr->count++;
+		FixUpTree(nodePtr);
+		return;
+	}
+
+	nodePtr = new Node<T>(x);
 	nodePtr->parent = prevPtr;
-	nodePtr->val = x;
 	if(x < prevPtr->val)
 		prevPtr->left = nodePtr;
 	else
 		prevPtr->right = nodePtr;
 
-	size++;
+	FixUpTree(nodePtr);	
+
 }
 
 template <class T>
@@ -132,6 +206,9 @@ void BinarySearchTree<T>::swapVal(Node<T> *n1, Node<T> *n2) {
 	T temp = n1->val;
 	n1->val = n2->val;
 	n2->val = temp;
+	long long tempCount = n1->count;
+	n1->count = n2->count;
+	n2->count = tempCount;
 }
 
 template <class T>
@@ -145,12 +222,19 @@ void BinarySearchTree<T>::remove(T x) {
 				nodePtr = nodePtr->right;
 		}
 		if(nodePtr != NULL) {
-			size--;
+			if(nodePtr->count > 1) {
+				nodePtr->count--;
+				FixUpTree(nodePtr);
+				return;
+			}
+
 			if( numChildren(nodePtr) < 2)
 				splice = nodePtr;
 			else {
 				splice = getSuccessor(nodePtr);
 				swapVal(splice,nodePtr);
+				//FixUpTree(splice);
+				//FixUpTree(nodePtr);
 			}
 
 			spliceP = splice->parent;
@@ -171,8 +255,11 @@ void BinarySearchTree<T>::remove(T x) {
 					spliceP->right = spliceC;
 				if(spliceC)
 					spliceC->parent = spliceP;
-			}			
+			}		
+			splice->count--;	//sets to zero to properly fixup tree
+			FixUpTree(splice);
 			delete splice;
+			//FixUpTree(splice);
 		}
 	}
 	
@@ -196,7 +283,7 @@ T BinarySearchTree<T>::getPredecessor(T x) {
 
 template <class T>
 long long BinarySearchTree<T>::getSize() {
-	return size;
+	return root->size;
 }
 
 template <class T>
@@ -218,6 +305,7 @@ template <class T>
 std::string BinarySearchTree<T>::objType() {
 	std::string result = "BinarySearchTree";
 	preOrderTraversal(root);
+	printf("\n");
 	return result;
 }
 
@@ -225,7 +313,7 @@ std::string BinarySearchTree<T>::objType() {
 template <class T>
 void BinarySearchTree<T>::preOrderTraversal(Node<T> *n) {
 	if(n) {
-		printf("%d\n", (int)(n->val));
+		printf("%d %lld %lld\n", (int)(n->val), n->count, n->size);
 		preOrderTraversal(n->left);
 		preOrderTraversal(n->right);
 
@@ -235,11 +323,31 @@ void BinarySearchTree<T>::preOrderTraversal(Node<T> *n) {
 
 
 
+template<class T>
+void BinarySearchTree<T>::UpdateNode(Node<T> *n) {
+	if(n) {
+		long long leftSize = 0, rightSize = 0;
+		if(n->left) {
+			leftSize = n->left->size;
+		}
+		if(n->right) {
+			rightSize = n->right->size;
+		}
+		n->size = leftSize + rightSize + n->count;
+	}
+}
 
-
-
-
-
+template<class T>
+Node<T> *BinarySearchTree<T>::searchForNode(T x) {
+	Node<T> *nodePtr = root;
+	while(nodePtr && nodePtr->val != x) {
+		if(x < nodePtr->val)
+			nodePtr = nodePtr->left;
+		else
+			nodePtr = nodePtr->right;
+	}
+	return nodePtr;
+}
 
 
 
