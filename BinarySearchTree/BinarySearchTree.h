@@ -7,8 +7,8 @@
 	struct Node {
 		Node *parent, *left, *right;
 		T val;
-		long long size,count;
-		Node(T v) {val = v; parent = left = right = 0; size = count = 1; };
+		long long size,count,height;
+		Node(T v) {val = v; parent = left = right = 0; height = 0; size = count = 1; };
 	};
 
 template <class T>
@@ -42,10 +42,10 @@ class BinarySearchTree : public DynamicSet<T> {
 		void UpdateNode(Node<T> *n);
 		Node<T> *searchForNode(T x);
 		
-//		void BalanceTree(Node<T> *n);
-//		long long nodeBalance(Node<T> *n);
-//		void LeftRotate(Node<T> *n);
-//		void RightRotate(Node<T> *n);
+		void BalanceTree(Node<T> *n);
+		long long nodeBalance(Node<T> *n);
+		void LeftRotate(Node<T> *n);
+		void RightRotate(Node<T> *n);
 		void FixUpTree(Node<T> *n);
 	private:
 		

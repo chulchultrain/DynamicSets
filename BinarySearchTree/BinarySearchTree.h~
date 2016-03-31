@@ -7,8 +7,8 @@
 	struct Node {
 		Node *parent, *left, *right;
 		T val;
-		long long size,count;
-		Node(T v) {val = v; parent = left = right = 0; size = count = 1; };
+		long long size,count,height;
+		Node(T v) {val = v; parent = left = right = 0; height = 0; size = count = 1; };
 	};
 
 template <class T>
@@ -24,7 +24,8 @@ class BinarySearchTree : public DynamicSet<T> {
 		virtual T getPredecessor(T x);
 		virtual long long getSize();
 		virtual bool search(T x);
-		virtual std::string objType();	
+		virtual std::string objType();
+		virtual long long getCount(T x);		
 
 	protected:
 
