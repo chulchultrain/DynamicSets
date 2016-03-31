@@ -10,7 +10,7 @@
 template <class T>
 SimpleArray<T>::SimpleArray() {
 	printf("SIMPLEARRAY CONSTRUCTOR\n");
-	numElements = 0;
+	numElements = maxIndex = 0;
 	maxSize = MAX_ARRAY_SIZE;
 }
 
@@ -21,11 +21,26 @@ SimpleArray<T>::~SimpleArray() {
 }
 
 template <class T>
+void SimpleArray<T>::swapElements(int i,int j) {
+	Node<T> temp = elements[i];
+	elements[i] = elements[j];
+	elements[j] = temp;
+}
+
+template <class T>
 bool SimpleArray<T>::search(T x) {
-	for(int i = 0; i < numElements; i++)	
-		if(elements[i] == x)
+	for(int i = 0; i < maxIndex; i++)	
+		if(elements[i].val == x)
 			return true;
 	return false;
+}
+
+template <class T>
+long long SimpleArray<T>::getCount(T x) {
+	for(int i = 0; i < maxIndex; i++)	
+		if(elements[i].val == x)
+			return elements[i].count;	
+	return 0;
 }
 
 template <class T>
@@ -35,21 +50,21 @@ long long SimpleArray<T>::getSize() {
 
 template <class T>
 T SimpleArray<T>::getMax() {
-	T maxElement = elements[0];
+	T maxElement = elements[0].val;
 	unsigned int i;
 	for(i = 0; i < numElements; i++)
-		if(maxElement < elements[i])
-			maxElement = elements[i];
+		if(maxElement < elements[i].val)
+			maxElement = elements[i].val;
 	return maxElement;
 }
 
 template <class T>
 T SimpleArray<T>::getMin(){
-	T minElement = elements[0];
+	T minElement = elements[0].val;
 	unsigned int i;
-	for(i = 0; i < numElements; i++)
-		if(minElement < elements[i])
-			minElement = elements[i];
+	for(i = 0; i < maxIndex; i++)
+		if(minElement < elements[i].val)
+			minElement = elements[i].val;
 	return minElement;
 }
 
@@ -57,22 +72,38 @@ T SimpleArray<T>::getMin(){
 
 template <class T>
 void SimpleArray<T>::insert(T x){
-	if(numElements < MAX_ARRAY_SIZE) {
-		elements[numElements] = x;
+	unsigned int i = 0,j = 0;
+	while(i < maxIndex && elements[i].val != x)
+		i++;	
+	if(i < maxIndex) {
+		elements[i].count++;
+		numElements++;
+	}
+	else if(i == maxIndex && i < MAX_ARRAY_SIZE) {
+		elements[maxIndex].val = x;
+		elements[maxIndex].count = 1;
+		maxIndex++;
 		numElements++;
 	}		
+
 }
 
 template <class T>
 void SimpleArray<T>::remove(T x){
 	unsigned int i = 0,j = 0;
-	if(numElements > 0) {
-		while(i < numElements && elements[i] != x)
+	if(maxIndex > 0) {
+		while(i < maxIndex && elements[i].val != x)
 			i++;
-		if(i < numElements) {
-		j = numElements - 1;
-		elements[i] = elements[j];
-		numElements--;
+		if(i < maxIndex) {
+			if(elements[i].count > 1) {
+				elements[i].count--;
+			}
+			else {
+				j = maxIndex - 1;
+				swapElements(i,j);
+				maxIndex--;
+			}
+			numElements--;
 		}
 	}
 }
@@ -81,9 +112,9 @@ template <class T>
 T SimpleArray<T>::getSuccessor(T x) {
 	T successor = getMax();
 	unsigned int i,j;
-	for(i = 0; i < numElements; i++)
-		if(elements[i] > x && elements[i] <= successor)
-			successor = elements[i];
+	for(i = 0; i < maxIndex; i++)
+		if(elements[i].val > x && elements[i].val <= successor)
+			successor = elements[i].val;
 	return successor;
 }
 
@@ -91,9 +122,9 @@ template <class T>
 T SimpleArray<T>::getPredecessor(T x) {
 	T predecessor = getMin();
 	unsigned int i,j;
-	for(i = 0; i < numElements; i++)
-		if(elements[i] < x && elements[i] >= predecessor)
-			predecessor = elements[i];
+	for(i = 0; i < maxIndex; i++)
+		if(elements[i].val < x && elements[i].val >= predecessor)
+			predecessor = elements[i].val;
 	return predecessor;
 }
 

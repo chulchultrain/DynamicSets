@@ -9,6 +9,13 @@
 #endif
 
 template <class T>
+struct Node {
+	T val;
+	long long count;
+
+};
+
+template <class T>
 class SimpleArray : public DynamicSet<T> {
 	public:
 		virtual T getMax();
@@ -21,11 +28,15 @@ class SimpleArray : public DynamicSet<T> {
 		virtual long long getSize();
 		SimpleArray();
 		virtual ~SimpleArray();
-		virtual std::string objType();	
+		virtual std::string objType();
+		virtual long long getCount(T x);	
 	private:
-		T elements[MAX_ARRAY_SIZE];
-		long long numElements;
+		void swapElements(int i,int j);
+		Node<T> elements[MAX_ARRAY_SIZE];
+		long long maxIndex;
 		long long maxSize;
+		long long numElements;
+
 };
 
 

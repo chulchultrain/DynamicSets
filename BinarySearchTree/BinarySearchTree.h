@@ -24,7 +24,8 @@ class BinarySearchTree : public DynamicSet<T> {
 		virtual T getPredecessor(T x);
 		virtual long long getSize();
 		virtual bool search(T x);
-		virtual std::string objType();	
+		virtual std::string objType();
+		virtual long long getCount(T x);		
 
 	protected:
 

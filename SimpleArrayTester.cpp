@@ -41,8 +41,12 @@ int main() {
 		std::cout << "TRUE\n";
 	else
 		std::cout << "FALSE\n";
-	std::cout << set->objType() << '\n';
 
+	
+	std::cout << set->objType() << '\n';
+	for(i = 0; i < 30; i++) {
+		std::cout << i << ' ' << set->getCount(i) << std::endl;
+	}
 	delete set;
 
 

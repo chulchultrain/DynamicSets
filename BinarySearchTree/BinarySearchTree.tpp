@@ -107,6 +107,9 @@ void BinarySearchTree<T>::LeftRotate(Node<T> *n) {
 		b->parent = parent;
 		if(beta)
 			beta->parent = alpha;
+		UpdateNode(a);
+		UpdateNode(b);		
+
 	}
 }
 */
@@ -121,6 +124,8 @@ void BinarySearchTree<T>::RightRotate(Node<T> *n) {
 		b->parent = parent;
 		if(beta)
 			beta->parent = alpha;
+		UpdateNode(a);
+		UpdateNode(b);
 	}
 }
 */
@@ -136,6 +141,12 @@ void BinarySearchTree<T>::BalanceTree(Node<T> *n) {
 			if(leftBalance <= -1)
 				LeftRotate(nodePtr->left);
 			RightRotate(nodePtr->left);
+		}
+		else if(balance < -1) {
+			rightBalance = nodeBalance(nodePtr->right);
+			if(rightBalance >= 1)
+				RightRotate(nodePtr->right);
+			LeftRotate(nodePtr->right);
 		}
 	}
 }
@@ -350,6 +361,20 @@ Node<T> *BinarySearchTree<T>::searchForNode(T x) {
 }
 
 
+template<class T>
+long long BinarySearchTree<T>::getCount(T x) {
+	Node<T> *nodePtr = root;
+	while(nodePtr && nodePtr->val != x) {
+		if(x < nodePtr->val)
+			nodePtr = nodePtr->left;
+		else
+			nodePtr = nodePtr->right;
+	}
+	if(nodePtr)
+		return nodePtr->count;
+	else
+		return 0;
+}
 
 
 
