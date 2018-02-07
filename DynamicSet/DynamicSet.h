@@ -14,8 +14,6 @@ class DynamicSet{
 		virtual T getMin() = 0;
 		virtual void insert(T x) = 0;
 		virtual void remove(T x) = 0;
-		virtual T getSuccessor(T x) = 0;
-		virtual T getPredecessor(T x) = 0;
 		virtual long long getSize() = 0;
 		virtual bool search(T x) = 0;
 		virtual long long getCount(T x) = 0;
@@ -27,7 +25,3 @@ class DynamicSet{
 
 
 #endif
-
-
-
-

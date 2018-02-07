@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 #ifndef MAX_ARRAY_SIZE
-#define MAX_ARRAY_SIZE 100
+#define MAX_ARRAY_SIZE 1000000
 #endif
 
 template <class T>
@@ -29,7 +29,7 @@ void SimpleArray<T>::swapElements(int i,int j) {
 
 template <class T>
 bool SimpleArray<T>::search(T x) {
-	for(int i = 0; i < maxIndex; i++)	
+	for(int i = 0; i < maxIndex; i++)
 		if(elements[i].val == x)
 			return true;
 	return false;
@@ -37,9 +37,9 @@ bool SimpleArray<T>::search(T x) {
 
 template <class T>
 long long SimpleArray<T>::getCount(T x) {
-	for(int i = 0; i < maxIndex; i++)	
+	for(int i = 0; i < maxIndex; i++)
 		if(elements[i].val == x)
-			return elements[i].count;	
+			return elements[i].count;
 	return 0;
 }
 
@@ -72,9 +72,9 @@ T SimpleArray<T>::getMin(){
 
 template <class T>
 void SimpleArray<T>::insert(T x){
-	unsigned int i = 0,j = 0;
+	unsigned int i = 0;
 	while(i < maxIndex && elements[i].val != x)
-		i++;	
+		i++;
 	if(i < maxIndex) {
 		elements[i].count++;
 		numElements++;
@@ -84,7 +84,7 @@ void SimpleArray<T>::insert(T x){
 		elements[maxIndex].count = 1;
 		maxIndex++;
 		numElements++;
-	}		
+	}
 
 }
 
@@ -109,48 +109,9 @@ void SimpleArray<T>::remove(T x){
 }
 
 template <class T>
-T SimpleArray<T>::getSuccessor(T x) {
-	T successor = getMax();
-	unsigned int i,j;
-	for(i = 0; i < maxIndex; i++)
-		if(elements[i].val > x && elements[i].val <= successor)
-			successor = elements[i].val;
-	return successor;
-}
-
-template <class T>
-T SimpleArray<T>::getPredecessor(T x) {
-	T predecessor = getMin();
-	unsigned int i,j;
-	for(i = 0; i < maxIndex; i++)
-		if(elements[i].val < x && elements[i].val >= predecessor)
-			predecessor = elements[i].val;
-	return predecessor;
-}
-
-template <class T>
 std::string SimpleArray<T>::objType() {
 	std::string result = "SimpleArray";
 	return result;
 };
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
