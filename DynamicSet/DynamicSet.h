@@ -10,8 +10,6 @@ class DynamicSet{
 	public:
 		DynamicSet() { printf("DYNAMICSET CONSTRUCTOR\n"); };
 		virtual ~DynamicSet() { printf("DYNAMIC SET DESTRUCTOR\n"); };
-		virtual T getMax() = 0;
-		virtual T getMin() = 0;
 		virtual void insert(T x) = 0;
 		virtual void remove(T x) = 0;
 		virtual long long getSize() = 0;
