@@ -10,6 +10,8 @@ class DynamicSetTester {
         DynamicSetTester() { printf("DYNAMICSETTESTER CONSTRUCTOR\n"); }
         ~DynamicSetTester() { printf("DYNAMICSETTESTER DESTRUCTOR\n"); }
         void test(DynamicSet<int> *ds );
+        void test_insert(DynamicSet<int> *ds);
+        void test_remove(DynamicSet<int> *ds);
 };
 
 
