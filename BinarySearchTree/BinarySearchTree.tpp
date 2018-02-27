@@ -34,7 +34,7 @@ Node<T> *BinarySearchTree<T>::getSubTreeMin(Node<T> *root) {
 		while(nodePtr->left) {
 			nodePtr = nodePtr->left;
 		}
-	return nodePtr;	
+	return nodePtr;
 }
 
 template <class T>
@@ -46,10 +46,10 @@ Node<T> *BinarySearchTree<T>::getSuccessor(Node<T> *n) {
 		while(parentPtr != NULL && nodePtr != parentPtr->left) {
 			nodePtr = parentPtr;
 			parentPtr = parentPtr->parent;
-		}	
+		}
 		return parentPtr;
 	}
-		
+
 }
 
 template <class T>
@@ -61,10 +61,10 @@ Node<T> *BinarySearchTree<T>::getPredecessor(Node<T> *n) {
 		while(parentPtr != NULL && nodePtr != parentPtr->right) {
 			nodePtr = parentPtr;
 			parentPtr = parentPtr->parent;
-		}	
+		}
 		return parentPtr;
 	}
-	
+
 }
 
 template <class T>
@@ -93,7 +93,7 @@ void BinarySearchTree<T>::FixUpTree(Node<T> *n) {
 			UpdateNode(nodePtr);
 			BalanceTree(nodePtr);
 			nodePtr = nodePtr->parent;
-		}	
+		}
 	}
 }
 
@@ -120,7 +120,7 @@ void BinarySearchTree<T>::LeftRotate(Node<T> *n) {
 		}
 
 		UpdateNode(a);
-		UpdateNode(b);		
+		UpdateNode(b);
 		if(resetRoot)
 			root = b;
 	}
@@ -192,7 +192,6 @@ void BinarySearchTree<T>::insert(T x) {
 		return;
 	}
 
-
 	Node<T> *nodePtr = root, *prevPtr = NULL;
 	while(nodePtr != NULL && nodePtr->val != x) {
 		prevPtr = nodePtr;
@@ -214,7 +213,7 @@ void BinarySearchTree<T>::insert(T x) {
 	else
 		prevPtr->right = nodePtr;
 
-	FixUpTree(nodePtr);	
+	FixUpTree(nodePtr);
 	preOrderTraversal(root);
 }
 
@@ -263,36 +262,34 @@ void BinarySearchTree<T>::remove(T x) {
 			else {
 				splice = getSuccessor(nodePtr);
 				swapVal(splice,nodePtr);
-				//FixUpTree(splice);
-				//FixUpTree(nodePtr);
 			}
 
 			spliceP = splice->parent;
 			if(splice->left)
 				spliceC = splice->left;
 			else
-				spliceC = splice->right;	
-	
+				spliceC = splice->right;
+
 			if(splice == root) {
 				root = spliceC;
 				if(root)
 					root->parent = NULL;
 			}
 			else {
-				if(splice == spliceP->left) 
+				if(splice == spliceP->left)
 					spliceP->left = spliceC;
 				else
 					spliceP->right = spliceC;
 				if(spliceC)
 					spliceC->parent = spliceP;
-			}		
+			}
 			splice->count--;	//sets to zero to properly fixup tree
 			FixUpTree(splice);
 			delete splice;
 			preOrderTraversal(root);
 		}
 	}
-	
+
 }
 
 
@@ -398,16 +395,3 @@ long long BinarySearchTree<T>::getCount(T x) {
 	else
 		return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

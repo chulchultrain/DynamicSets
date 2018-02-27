@@ -16,8 +16,6 @@ class DynamicSet{
 		virtual bool search(T x) = 0;
 		virtual long long getCount(T x) = 0;
 		virtual std::string objType() = 0;
-	private:
-
 };
 
 

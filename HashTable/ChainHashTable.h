@@ -14,16 +14,13 @@ class ChainHashTable : public HashTable<T> {
 	public:
 		ChainHashTable();
 		virtual ~ChainHashTable();
-		virtual T getMax();
-		virtual T getMin();
 		virtual void insert(T x);
 		virtual void remove(T x);
-		virtual T getSuccessor(T x);
-		virtual T getPredecessor(T x);
 		virtual long long hashFunction(T x);
 		virtual long long getSize();
+        virtual long long getCount(T x);
 		virtual bool search(T x);
-		virtual std::string objType();	
+		virtual std::string objType();
 	private:
 		struct TNode {
 			T val;

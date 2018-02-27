@@ -28,7 +28,21 @@ ChainHashTable<T>::~ChainHashTable() {
 template <class T>
 long long ChainHashTable<T>::getSize() {
 	return size;
-}	
+}
+
+template <class T>
+long long ChainHashTable<T>::getCount(T x) {
+    long long key = hashFunction(x);
+	TNode *nodePtr = table[key];
+    long long count = 0;
+	while(nodePtr != NULL) {
+        if(nodePtr->val == x)
+            count++;
+		nodePtr = nodePtr->next;
+
+    }
+    return count;
+}
 
 template <class T>
 T ChainHashTable<T>::getMax() {
@@ -43,6 +57,8 @@ T ChainHashTable<T>::getMin() {
 	printf("FUNCTION ERROR. CHAINHASHTABLE::GETMIN UNDEF\n");
 	return min;
 }
+
+
 
 template <class T>
 bool ChainHashTable<T>::search(T x) {
@@ -73,13 +89,13 @@ template <class T>
 void ChainHashTable<T>::DeleteList(TNode *head) {
 	if(head) {
 		DeleteList(head->next);
-		delete head;	
+		delete head;
 	}
 }
 
 template <class T>
 void ChainHashTable<T>::remove(T x) {
-	
+
 	//TODO: IMPLEMENT function;
 	int i = 0;
 	long long key = hashFunction(x);
@@ -91,12 +107,12 @@ void ChainHashTable<T>::remove(T x) {
 	if(nodePtr != NULL)
 		if(prevPtr) {
 			prevPtr->next = nodePtr->next;
-			delete nodePtr; 
+			delete nodePtr;
 			printf("WAS IN HERE\n");
 		}
 		else if(nodePtr == table[key]) {
 			table[key] = nodePtr->next;
-			delete nodePtr; 
+			delete nodePtr;
 			printf("WAS IN HERE\n");
 		}
 	printf("REMOVE COMPLETE\n");
@@ -126,7 +142,7 @@ long long ChainHashTable<T>::hashFunction(T x) {
 
 template <class T>
 std::string ChainHashTable<T>::objType() {
-	std::string result = "ChainHashTable\n";
+	std::string result = "ChainHashTable";
 	return result;
 }
 

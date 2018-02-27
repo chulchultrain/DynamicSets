@@ -10,13 +10,13 @@ class HashTable : public DynamicSet<T> {
 	public:
 		HashTable() { printf("HASHTABLE CONSTRUCTER\n"); };
 		virtual ~HashTable() { printf("HASHTABLE DESTRUCTOR\n"); };
-		virtual T getMax() = 0;
-		virtual T getMin() = 0;
 		virtual void insert(T x) = 0;
 		virtual void remove(T x) = 0;
-		virtual T getSuccessor(T x) = 0;
-		virtual T getPredecessor(T x) = 0;
 		virtual long long hashFunction(T x) = 0;
+        virtual long long getCount(T x) = 0;
+        virtual long long getSize() = 0;
+        virtual bool search(T x);
+		virtual std::string objType();
 };
 
 
