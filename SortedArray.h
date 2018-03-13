@@ -28,6 +28,7 @@ class SortedArray : public RankedDynamicSet<T> {
 		virtual bool search(T x);
 		virtual long long getCount(T x);
         virtual long long getRank(T x);
+        virtual void clear();
 		virtual std::string objType();
     private:
         long long lookUpIndex(T x);

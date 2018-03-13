@@ -9,9 +9,18 @@ void RankedDynamicSetTester::test(RankedDynamicSet<int> *rds ) {
 }
 
 void RankedDynamicSetTester::test_insert(RankedDynamicSet<int> *rds ) {
-
-
+    DynamicSetTester::test_insert(rds);
 }
+
+void RankedDynamicSetTester::test_clear(RankedDynamicSet<int> *rds ) {
+    DynamicSetTester::test_clear(rds);
+}
+
+void RankedDynamicSetTester::test_remove(RankedDynamicSet<int> *rds ) {
+    DynamicSetTester::test_remove(rds);    
+}
+
+
 
 void RankedDynamicSetTester::test_ordering(RankedDynamicSet<int> *rds ) {
     std::vector<int> insert_cases;

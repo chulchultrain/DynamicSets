@@ -7,8 +7,8 @@ CC = g++
 FLAGS = -I$(HOME_DIR) -c -Wall
 CCMD = $(CC) $(FLAGS)
 
-SoATester: $(HOME_DIR)/SortedArrayTester.o $(HOME_DIR)/DynamicSet/RankedDynamicSetTester.o
-	$(CC) -o $(HOME_DIR)/SoATester $(HOME_DIR)/SortedArrayTester.o $(HOME_DIR)/DynamicSet/RankedDynamicSetTester.o
+SoATester: $(HOME_DIR)/SortedArrayTester.o $(HOME_DIR)/DynamicSet/RankedDynamicSetTester.o $(DS_DIR)/DynamicSetTester.o
+	$(CC) -o $(HOME_DIR)/SoATester $(HOME_DIR)/SortedArrayTester.o $(HOME_DIR)/DynamicSet/RankedDynamicSetTester.o $(DS_DIR)/DynamicSetTester.o
 
 SATester: $(HOME_DIR)/SimpleArrayTester.o $(HOME_DIR)/DynamicSet/DynamicSetTester.o
 	$(CC) -o $(HOME_DIR)/SATester $(HOME_DIR)/SimpleArrayTester.o $(HOME_DIR)/DynamicSet/DynamicSetTester.o
