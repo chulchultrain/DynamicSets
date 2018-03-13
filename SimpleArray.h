@@ -12,7 +12,8 @@ template <class T>
 struct Node {
 	T val;
 	long long count;
-
+    Node() {count = 0;}
+    Node(T x) {val = x; count = 1;}
 };
 
 template <class T>
@@ -24,6 +25,7 @@ class SimpleArray : public DynamicSet<T> {
 		virtual void remove(T x);
 		virtual bool search(T x);
 		virtual long long getSize();
+        virtual void clear();
 		SimpleArray();
 		virtual ~SimpleArray();
 		virtual std::string objType();

@@ -111,4 +111,13 @@ std::string SimpleArray<T>::objType() {
 	return result;
 };
 
+template <class T>
+void SimpleArray<T>::clear() {
+    maxIndex = 0;
+    numElements = 0;
+    for(long long i = 0; i < maxSize; i++) {
+        elements[i].count = 0;
+    }
+}
+
 #endif

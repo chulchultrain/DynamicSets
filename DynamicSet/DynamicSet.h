@@ -14,6 +14,7 @@ class DynamicSet{
 		virtual void remove(T x) = 0;
 		virtual long long getSize() = 0;
 		virtual bool search(T x) = 0;
+        virtual void clear() = 0;
 		virtual long long getCount(T x) = 0;
 		virtual std::string objType() = 0;
 };
