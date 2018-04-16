@@ -16,6 +16,8 @@ SATester: $(HOME_DIR)/SimpleArrayTester.o $(HOME_DIR)/DynamicSet/DynamicSetTeste
 CHTTester: $(HT_DIR)/ChainHashTableTester.o
 	$(CC) -o $(HOME_DIR)/CHTTester $(HT_DIR)/ChainHashTableTester.o
 
+AVLTTester: $(BST_DIR)/AVLTreeTester.o
+	$(CC) -o $(HOME_DIR)/AVLTTester $(BST_DIR)/AVLTreeTester.o
 
 
 $(HOME_DIR)/DynamicSet/DynamicSetTester.o: $(DS_DIR)/DynamicSetTester.h $(DS_DIR)/DynamicSetTester.cpp $(DS_DIR)/DynamicSet.h
