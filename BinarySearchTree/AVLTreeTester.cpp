@@ -24,6 +24,12 @@ int main() {
     PrintStates(set);
     set->insert(0);
     PrintStates(set);
+    set->remove(0);
+    PrintStates(set);
+    set->remove(1);
+    PrintStates(set);
+    set->remove(2);
+    PrintStates(set);
     delete set;
 	return 0;
 }

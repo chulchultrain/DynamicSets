@@ -147,11 +147,11 @@ void AVLTree<T>::remove(T x) {
 }
 
 template <class T>
-Node<T> **AVLTree<T>::ChildNodePointer(Node<T> *subRoot) {
+Node<T> **AVLTree<T>::ChildNodePointer(Node<T> *subRoot, Node<T> *childNode) {
     Node<T> **res = NULL;
-    if(subRoot->left) {
+    if(subRoot->left == childNode) {
         res = &subRoot->left;
-    } else if(subRoot->right) {
+    } else if(subRoot->right == childNode) {
         res = &subRoot->right;
     }
     return res;
@@ -196,16 +196,21 @@ void AVLTree<T>::Physical_Remove(Node<T> *removeNode) {
     if(root == removeNode) {
         //special root case.
         root = LeftMostChild(removeNode);
-        root->parent = NULL;
+        if(root)
+            root->parent = NULL;
         delete removeNode;
     } else {
         //non root case. important detail = has a parent.
         Node<T> *parentNode = removeNode->parent;
-        Node<T> **removeNodeDirectionPointer = ChildNodePointer(parentNode);
+        Node<T> **removeNodeDirectionPointer = ChildNodePointer(parentNode,removeNode);
         Node<T> *childNode = LeftMostChild(removeNode);
-
+        //std::cout << "AFTER CHILDNODEPOINTER AND LEFTMOSTCHILD IN PR" << std::endl << std::endl;
         (*removeNodeDirectionPointer) = childNode;
-        childNode->parent = parentNode;
+        //std::cout << "AFTER REFERENCE RNDP" << std::endl << std::endl;
+        if(childNode)
+            childNode->parent = parentNode;
+        //std::cout << "AFTER CNP = P" << std::endl << std::endl;
+        delete removeNode;
     }
 }
 
@@ -325,7 +330,8 @@ void AVLTree<T>::PreOrderTraversal() {
 template <class T>
 void AVLTree<T>::PreOrderTraversal(Node<T> *subRoot) {
     if(subRoot) {
-        std::cout << subRoot->val << '\n';
+        subRoot->printState();
+        //std::cout << subRoot->val << '\n';
         PreOrderTraversal(subRoot->left);
         PreOrderTraversal(subRoot->right);
     }

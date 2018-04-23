@@ -15,6 +15,12 @@ struct Node {
     Node<T> *parent;
     Node() { count = size = 0; left = right = parent = NULL; };
     Node(T x) { count = size = 1; left = right = parent = NULL; val = x; }
+    void printState() {
+        printf("ADDR: %p ", this);
+        printf("LEFT: %p ", left);
+        printf("RIGHT: %p ", right);
+        printf("PARENT: %p \n", parent);
+    }
 };
 
 template <class T>
@@ -47,7 +53,7 @@ class AVLTree : public BinarySearchTree<T> {
         void PrintPostOrderTraversal();
 
         int NumChildren(Node<T> *subRoot);
-        Node<T> **ChildNodePointer(Node<T> *subRoot);
+        Node<T> **ChildNodePointer(Node<T> *subRoot,Node<T> *childNode);
         void Physical_Remove(Node<T> *removeNode);
         Node<T> *LeftMostChild(Node<T> *subRoot);
         void setNodeSize(Node<T> *subRoot);
