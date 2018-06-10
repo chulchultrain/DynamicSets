@@ -7,8 +7,10 @@ CC = g++
 FLAGS = -I$(HOME_DIR) -c -Wall
 CCMD = $(CC) $(FLAGS)
 
-SoATester: $(HOME_DIR)/SortedArrayTester.o $(HOME_DIR)/DynamicSet/RankedDynamicSetTester.o
-	$(CC) -o $(HOME_DIR)/SoATester $(HOME_DIR)/SortedArrayTester.o $(HOME_DIR)/DynamicSet/RankedDynamicSetTester.o
+
+
+SoATester: $(HOME_DIR)/SortedArrayTester.o $(HOME_DIR)/DynamicSet/RankedDynamicSetTester.o $(DS_DIR)/DynamicSetTester.o
+	$(CC) -o $(HOME_DIR)/SoATester $(HOME_DIR)/SortedArrayTester.o $(HOME_DIR)/DynamicSet/RankedDynamicSetTester.o $(DS_DIR)/DynamicSetTester.o
 
 SATester: $(HOME_DIR)/SimpleArrayTester.o $(HOME_DIR)/DynamicSet/DynamicSetTester.o
 	$(CC) -o $(HOME_DIR)/SATester $(HOME_DIR)/SimpleArrayTester.o $(HOME_DIR)/DynamicSet/DynamicSetTester.o
@@ -16,6 +18,8 @@ SATester: $(HOME_DIR)/SimpleArrayTester.o $(HOME_DIR)/DynamicSet/DynamicSetTeste
 CHTTester: $(HT_DIR)/ChainHashTableTester.o
 	$(CC) -o $(HOME_DIR)/CHTTester $(HT_DIR)/ChainHashTableTester.o
 
+AVLTTester: $(BST_DIR)/AVLTreeTester.o $(HOME_DIR)/DynamicSet/RankedDynamicSetTester.o $(DS_DIR)/DynamicSetTester.o
+	$(CC) -o $(HOME_DIR)/AVLTTester $(BST_DIR)/AVLTreeTester.o $(HOME_DIR)/DynamicSet/RankedDynamicSetTester.o $(DS_DIR)/DynamicSetTester.o
 
 
 $(HOME_DIR)/DynamicSet/DynamicSetTester.o: $(DS_DIR)/DynamicSetTester.h $(DS_DIR)/DynamicSetTester.cpp $(DS_DIR)/DynamicSet.h
@@ -34,7 +38,7 @@ $(HOME_DIR)/SortedArrayTester.o: $(HOME_DIR)/SortedArray.h $(HOME_DIR)/SortedArr
 $(HT_DIR)/ChainHashTableTester.o: $(HT_DIR)/HashTable.h $(HT_DIR)/ChainHashTableTester.cpp $(HT_DIR)/ChainHashTable.tpp
 	$(CCMD)  $(HT_DIR)/ChainHashTableTester.cpp -o $(HT_DIR)/ChainHashTableTester.o
 
-$(BST_DIR)/AVLTreeTester.o: $(BST_DIR)/AVLTree.h $(BST_DIR)/AVLTree.tpp $(BST_DIR)/AVLTreeTester.cpp 
+$(BST_DIR)/AVLTreeTester.o: $(BST_DIR)/AVLTree.h $(BST_DIR)/AVLTree.tpp $(BST_DIR)/AVLTreeTester.cpp $(DS_DIR)/RankedDynamicSetTester.h
 	$(CCMD) $(BST_DIR)/AVLTreeTester.cpp -o $(BST_DIR)/AVLTreeTester.o
 
 

@@ -45,7 +45,6 @@ void SortedArray<T>::insert(T x) {
 
 template <class T>
 long long SortedArray<T>::lookUpPlaceToPut(T x) {
-    long long res = 0LL;
     for(long long i = 0; i < array_size; i++) {
         if(x < elements[i].val)
             return i;
@@ -160,4 +159,14 @@ void SortedArray<T>::PrintState() {
         std::cout << elements[i].val << ' ' << elements[i].count << '\n';
     }
     std::cout << '\n';
+}
+
+
+template <class T>
+void SortedArray<T>::clear() {
+    numElements = 0;
+    array_size = 0;
+    for(long long i = 0; i < MAX_ARRAY_SIZE; i++) {
+        elements[i].count = 0;
+    }
 }
